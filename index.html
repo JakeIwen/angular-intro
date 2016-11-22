@@ -6,6 +6,7 @@
   <script type="text/javascript" src="vendors/angular.min.js"></script>
   <script type="text/javascript" src="scripts/client.js"></script>
   <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="styles/styles.css">
 </head>
 <body>
   <main ng-app="SigmanautApp" ng-controller="SigmanautController as sigmanaut">
@@ -16,16 +17,29 @@
         <div class="form-group col-md-6">
           <label for="firstName">First Name</label>
           <input type="text" name="firstName" class="form-control" ng-model="sigmanaut.newPerson.firstName" placeholder="First Name"/>
+          <label for="Github Username">Github Username</label>
+          <input type="text" name="Github Username" class="form-control" ng-model="sigmanaut.newPerson.git_username" placeholder="Github Username"/>
+
+         <button type="submit" class="btn" ng-click="sigmanaut.createPerson()">Create New</button>
+
         </div>
-        <!-- What other fields do we need to ask for in order to get the information we need? -->
+        <div class="form-group col-md-6">
+          <label for="lastName">Last Name</label>
+          <input type="text" name="lastName" class="form-control" ng-model="sigmanaut.newPerson.lastName" placeholder="Last Name"/>
+          <label for="shoutout">Shoutout</label>
+          <input type="text" name="shoutout" class="form-control" ng-model="sigmanaut.newPerson.shoutout" placeholder="Shoutout"/>
+        </div>
+
       </form>
     </section>
     <section class="container">
       <h3>Class List</h3>
+      <input ng-model="sigmanaut.searchText" placeholder="Search by name"/>
+
       <ul class="list-group">
-        <li class="list-group-item" ng-repeat=""> <!-- What needs to be repeated? -->
+        <li class="list-group-item" ng-repeat="person in sigmanaut.people | filter:sigmanaut.searchText"> <!-- What needs to be repeated? -->
           <!-- TODO: Create a list item for everyone in the class -->
-          {{person.firstName}}<!-- include the other parameters for the person -->
+          <a ng-href="https://github.com/{{person.git_username}}"> {{person.firstName}} {{person.lastName}}</a> - {{person.shoutout}}<!-- include the other parameters for the person -->
         </li>
       </ul>
     </section>
